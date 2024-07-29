@@ -1,12 +1,22 @@
-
-
 module.exports = {
     createUser: [
         {
-            model: 'username',
+            model: 'email',
+            required: true,
+        },
+        {
+            model: 'password',
+            required: true,
+        },
+    ],
+    login: [
+        {
+            model: 'email',
+            required: true,
+        },
+        {
+            model: 'password',
             required: true,
         },
     ],
 }
-
-

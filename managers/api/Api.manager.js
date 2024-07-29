@@ -91,18 +91,6 @@ module.exports = class ApiHandler {
                 }
             }
         });
-
-        /** expose apis through cortex */
-        this.cortex.sub('*', (d, meta, cb) => {
-            let [moduleName, fnName] = meta.event.split('.');
-            let targetModule = this.exposed[moduleName];
-            if (!targetModule) return cb({ error: `module ${moduleName} not found` });
-            try {
-                targetModule.interceptor({ data: d, meta, cb, fnName });
-            } catch (err) {
-                cb({ error: `failed to execute ${fnName}` });
-            }
-        });
         
     }
 
@@ -163,9 +151,9 @@ module.exports = class ApiHandler {
             } else {
                 
                 if(result.errors){
-                    return this.managers.responseDispatcher.dispatch(res, {ok: false, errors: result.errors});
+                    return this.managers.responseDispatcher.dispatch(res, {ok: false, code: result.code, errors: result.errors, message: result.message ? result.message : result.error});
                 } else if(result.error){
-                    return this.managers.responseDispatcher.dispatch(res, {ok: false, message: result.error});
+                    return this.managers.responseDispatcher.dispatch(res, {ok: false, code: result.code, errors: result.errors, message: result.message ? result.message : result.error});
                 } else {
                     return this.managers.responseDispatcher.dispatch(res, {ok:true, data: result});
                 }

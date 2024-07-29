@@ -20,6 +20,7 @@ module.exports = {
     email: {
         path: 'email',
         type: 'string',
+        regex: '^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$',
         length: {min:3, max: 100},
     },
     title: {
@@ -81,10 +82,6 @@ module.exports = {
         type: 'String',
         length: 13,
     },
-    email: {
-        type: 'String',
-        regex: /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    },
     number: {
         type: 'Number',
         length: {min: 1, max:6},
@@ -102,4 +99,35 @@ module.exports = {
     bool: {
         type: 'Boolean',
     },
+    name: {
+        path: 'name',
+        type: 'string',
+        length: {min: 3, max: 100}
+    },
+    description: {
+        path: 'description',
+        type: 'string',
+        length: {min:3, max: 300}
+    },
+    school: {
+        path: 'school',
+        type: 'string',
+        length: {min: 3, max: 30},
+        custom: 'objectid',
+    },
+    admin: {
+        path: 'admin',
+        type: 'string',
+        length: {min: 3, max: 30},
+        custom: 'objectid',
+    },
+    students: {
+        path: 'students',
+        type: 'Array',
+        items: {
+            type: 'String',
+            length: { min: 3, max: 30},
+            custom: 'objectid'
+        }
+    }
 }
